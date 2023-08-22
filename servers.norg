@@ -11,7 +11,9 @@ Total Costs: 80.55€/month – 966,60€/year
    	- Memory: 64GB
    	- IP: 95.216.241.45
 *** Services
-	- flora-pm-prod database (10.115.46.3)
+	- flora-pm-prod (10.115.46.3)
+		- postgresql 14
+		- pgbouncer
 	- files.glitchbra.in (10.115.46.2)
 	- music.glitchbra.in
 	- glitchbra.in

@@ -1,0 +1,32 @@
+hosts:
+  hosts:
+    persephone:
+      ansible_host: 163.172.211.189
+      http_port: 443
+      ansible_port: 4329
+    glitchbrain-prod:
+      ansible_host: prod.glitchbra.in
+      http_port: 443
+      ansible_port: 4022
+    flora-prod:
+      ansible_host: prod.flora.pm
+      ansible_port: 4022
+  vars:
+    ansible_user: ouranos
+    ansible_ssh_private_key_file: ~/.ssh/hecate_ifrit
+
+freebsd:
+  hosts:
+    glitchbrain-prod:
+      ansible_user: root
+    flora-prod:
+      ansible_user: root
+
+ubuntu:
+  hosts:
+    persephone:
+
+web:
+  hosts:
+    persephone:
+    glitchbrain-prod:

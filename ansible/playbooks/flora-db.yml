@@ -1,0 +1,75 @@
+- name: "Provision database server"
+  hosts: flora-prod
+  tasks:
+    - name: "Install packages"
+      community.general.pkgng:
+        name:
+          - postgresql15-server
+          - postgresql15-client
+          - postgresql15-contrib
+          - pgbouncer
+        state: present
+
+    - name: "Enable postgresql service"
+      community.general.sysrc:
+        name: postgresql_enable
+        value: "YES"
+
+    - name: "Enable pgbouncer service"
+      community.general.sysrc:
+        name: "pgbouncer_enable"
+        value: "YES"
+
+    - name: "Send pgbouncer.ini"
+      ansible.builtin.template:
+         src: templates/pgbouncer.ini
+         dest: /usr/local/etc/pgbouncer.ini
+      become: true
+
+    - name: "Send pgbouncer.users"
+      ansible.builtin.template:
+         src: templates/pgbouncer.users
+         dest: /usr/local/etc/pgbouncer.users
+      become: true
+
+    - name: "Start pgbouncer"
+      ansible.builtin.service:
+        name: pgbouncer
+        state: restarted
+
+    - name: "Create database cluster"
+      ansible.builtin.shell: "[ ! -d /var/db/postgres/data15 ] && /usr/local/etc/rc.d/postgresql initdb || true"
+
+    - name: "Send pg_hba.conf"
+      ansible.builtin.template:
+         src: templates/pg_hba.conf
+         dest: /var/db/postgres/data15/pg_hba.conf
+      become: true
+
+    - name: "Start postgresql"
+      ansible.builtin.service:
+        name: postgresql
+        state: started
+
+    - name: "Create database"
+      community.postgresql.postgresql_db:
+        name: flora_prod
+      become: true
+      become_user: postgres
+
+    - name: "Create user"
+      community.postgresql.postgresql_user:
+        db: flora_prod
+        name: flora
+        password: "fddZw3tgY&T*^Z5duf73"
+        expires: "infinity"
+      become: true
+      become_user: postgres
+
+    - name: GRANT ALL PRIVILEGES ON SCHEMA public TO flora
+      community.postgresql.postgresql_privs:
+        db: flora_prod
+        privs: ALL
+        type: database
+        role: flora
+

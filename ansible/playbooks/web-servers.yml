@@ -1,0 +1,20 @@
+- name: "Provision web servers (FreeBSD)"
+  hosts: glitchbrain-prod
+  tasks:
+    - name: "Install packages"
+      community.general.pkgng:
+        name:
+          - nginx
+          - py39-certbot
+        state: present
+
+- name: "Provision web servers (Ubuntu)"
+  hosts: persephone
+  tasks:
+    - name: "Install packages"
+      ansible.builtin.apt:
+        name:
+          - nginx
+          - certbot
+        state: present
+

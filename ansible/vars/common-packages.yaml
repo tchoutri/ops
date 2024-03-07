@@ -1,0 +1,10 @@
+---
+_common_packages: 
+  - htop
+  - tmux
+  - neovim
+  - zsh
+  - mosh
+  - rsync
+  - sudo
+  - ripgrep

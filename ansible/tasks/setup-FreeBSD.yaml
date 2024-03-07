@@ -1,0 +1,11 @@
+---
+
+- name: "Install packages"
+  ansible.builtin.pkgng:
+    name: "{{ _common_packages }}"
+    state: present
+
+- name: "Install FreeBSD-specific packages"
+  ansible.builtin.pkgng:
+    name: "{{ _freebsd_packages }}"
+    state: present

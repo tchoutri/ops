@@ -1,0 +1,4 @@
+---
+
+_freebsd_packages: 
+  - py39-psycopg2

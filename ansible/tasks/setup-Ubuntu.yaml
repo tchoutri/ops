@@ -1,0 +1,12 @@
+---
+
+- name: "Install packages"
+  ansible.builtin.apt:
+    name: "{{ _common_packages }}"
+    state: present
+
+- name: "Install Ubuntu-specific packages"
+  ansible.builtin.apt:
+    name: "{{ _ubuntu_packages }}"
+    state: present
+

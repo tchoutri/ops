@@ -5,11 +5,11 @@ hosts:
       http_port: 443
       ansible_port: 4329
     glitchbrain-prod:
-      ansible_host: prod.glitchbra.in
+      ansible_host: 95.216.241.45
       http_port: 443
       ansible_port: 4022
     flora-prod:
-      ansible_host: prod.flora.pm
+      ansible_host: 95.217.207.190
       ansible_port: 4022
   vars:
     ansible_user: ouranos
@@ -21,10 +21,14 @@ freebsd:
       ansible_user: root
     flora-prod:
       ansible_user: root
+  vars:
+    etc_dir: /usr/local/etc
 
 ubuntu:
   hosts:
     persephone:
+  vars:
+    etc_dir: /etc
 
 web:
   hosts:

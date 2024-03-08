@@ -1,0 +1,12 @@
+- name: "Deploy glitchbra.in configuration"
+  hosts: glitchbrain-prod
+  tasks:
+    - name: "Ensure site directory is present"
+      ansible.builtin.file:
+        path: /usr/local/www/glitchbrain/
+        state: directory
+
+    - name: "Synchronise configuration"
+      ansible.builtin.template:
+        src: templates/nginx/glitchbrain.conf
+        dest: /usr/local/etc/nginx/sites-available/glitchbrain.conf

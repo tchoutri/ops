@@ -8,6 +8,39 @@
           - py39-certbot
         state: present
 
+    - name: "Enable nginx service"
+      community.general.sysrc:
+        name: nginx_enable
+        value: "YES"
+
+    - name: "Synchronise configuration"
+      ansible.builtin.template:
+        src: templates/nginx/general.conf 
+        dest: /usr/local/etc/nginx/general.conf
+
+    - ansible.builtin.template:
+        src: templates/nginx/security.conf 
+        dest: /usr/local/etc/nginx/security.conf
+
+    - ansible.builtin.template:
+        src: templates/nginx/letsencrypt.conf 
+        dest: /usr/local/etc/nginx/letsencrypt.conf
+    
+    - name: Create sites-available
+      ansible.builtin.file:
+        path: /usr/local/etc/nginx/sites-available
+        state: directory
+
+    - name: Create sites-enabled
+      ansible.builtin.file:
+        path: /usr/local/etc/nginx/sites-enabled
+        state: directory
+
+    - name: "Reload nginx"
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+
 - name: "Provision web servers (Ubuntu)"
   hosts: persephone
   tasks:
@@ -17,4 +50,3 @@
           - nginx
           - certbot
         state: present
-

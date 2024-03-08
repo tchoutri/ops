@@ -8,3 +8,4 @@ _common_packages:
   - rsync
   - sudo
   - ripgrep
+  - tree

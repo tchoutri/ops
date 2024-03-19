@@ -9,3 +9,4 @@ _common_packages:
   - sudo
   - ripgrep
   - tree
+  - git

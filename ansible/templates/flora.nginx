@@ -72,6 +72,13 @@ server {
     }
 }
 
+server {
+    listen [::1]:80;
+    location /metrics {
+        stub_status on;
+    }
+
+
 # server {
 #     listen api.flora.pm:443 ssl http2;
 #     server_name api.flora.pm;

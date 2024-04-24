@@ -2,3 +2,8 @@
 
 _freebsd_packages: 
   - py39-psycopg2
+  - gmp
+  - perl5
+  - ncurses
+  - gmake
+  - gcc

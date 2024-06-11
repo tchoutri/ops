@@ -4,19 +4,26 @@
     - name: "Install packages"
       community.general.pkgng:
         name:
-          - qbittorrent-nox
+          - deluge-cli
         state: present
 
-    - name: "Enable qbittorent service"
+    - name: "Enable deluged service"
       community.general.sysrc:
-        name: qbittorent_enable
+        name: deluged_enable
         value: "YES"
 
-    - name: "Create qbittorent user"
+    - name: "Create deluged user"
       ansible.builtin.user:
-        name: "torrent"
+        name: "deluge"
 
-    - name: "Set qbittorent user"
+    - name: "Set deluged user"
       community.general.sysrc:
-        name: qbittorent_user
-        value: "torrent"
+        name: deluged_user
+        value: "deluge"
+
+    - name: "Create the settings directory"
+      ansible.builtin.file:
+        path: /home/deluge/.config/deluge
+        state: directory
+        owner: deluge
+        group: deluge

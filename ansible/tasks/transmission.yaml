@@ -1,0 +1,19 @@
+- name: "Provisioning Transmission"
+  hosts: glitchbrain-prod
+  tasks:
+    - name: "Install packages"
+      community.general.pkgng:
+        name:
+          - transmission-cli
+          - transmission-daemon
+          - transmission-web
+        state: present
+
+    - name: "Enable deluged service"
+      community.general.sysrc:
+        name: transmission_enable
+        value: "YES"
+
+    - name: "Create transmission user"
+      ansible.builtin.user:
+        name: "transmission"

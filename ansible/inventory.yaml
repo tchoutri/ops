@@ -1,19 +1,21 @@
 hosts:
   hosts:
     persephone:
-      ansible_host: 163.172.211.189
+      inventory_hostname: persephone
+      host_ip: 163.172.211.189
       http_port: 443
       ansible_port: 4329
     glitchbrain-prod:
-      ansible_host: 95.216.241.45
+      ansible_host: glitchbrain-prod
+      host_ip: 95.216.241.45
       http_port: 443
       ansible_port: 4022
     flora-prod:
-      ansible_host: 95.217.207.190
+      ansible_host: flora-prod
+      host_ip: 95.217.207.190
       ansible_port: 4022
   vars:
     ansible_user: ouranos
-    ansible_ssh_private_key_file: ~/.ssh/hecate_ifrit
 
 freebsd:
   hosts:

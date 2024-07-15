@@ -9,11 +9,44 @@
           - transmission-web
         state: present
 
-    - name: "Enable deluged service"
+    - name: "Enable transmission service"
       community.general.sysrc:
         name: transmission_enable
         value: "YES"
 
+    - name: "Configure transmission watch directory"
+      community.general.sysrc:
+        name: transmission_watch_dir
+        value: "/home/transmission/torrents"
+
+    - name: "Configure transmission download directory"
+      community.general.sysrc:
+        name: transmission_download_dir
+        value: "/home/transmission/downloads"
+
+    - name: "Configure transmission log file"
+      community.general.sysrc:
+        name: transmission_log
+        value: "/var/log/transmission.log"
+
+    - name: "Configure transmission configuration directory"
+      community.general.sysrc:
+        name: "transmission_conf_dir"
+        value: "/home/transmission"
+
     - name: "Create transmission user"
       ansible.builtin.user:
         name: "transmission"
+        create_home: true
+
+    - name: "Send configuration file"
+      ansible.builtin.copy:
+        src: "templates/transmission-settings.json"
+        dest: "/home/transmission/settings.json"
+        owner: transmission
+        group: transmission
+
+    - name: "Synchronise web configuration"
+      ansible.builtin.template:
+        src: templates/nginx/transmission.nginx
+        dest: /usr/local/etc/nginx/sites-available/transmission.nginx

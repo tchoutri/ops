@@ -7,3 +7,4 @@ _freebsd_packages:
   - ncurses
   - gmake
   - gcc
+  - btop
